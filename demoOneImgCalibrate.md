@@ -1,11 +1,7 @@
 [toc]
 # Implementation and visualisation of multiple classical calibration methods based on a single image
 # 基于单张图像的多种经典标定方法实现与可视化
-<center> 2022.8.27
-
- 崔星星
-
- cuixingxing150@gmail.com</center>
+<center> cuixingxing150@gmail.com</center>
 
 
 
@@ -144,7 +140,7 @@ The main algorithmic steps are:
 
 
    1.  Estimate the camera projection matrix <img src="https://latex.codecogs.com/gif.latex?\inline&space;P"/> based on the 3D-2D points 
-   1.  Decompose  $P$ into $K,R$ and $T$($P=K\left\lbrack R,T\right\rbrack)$ 
+   1.  Decompose  $P$ into $K,R$ and $T$ ( $P=K\left\lbrack R,T\right\rbrack)$  
 
 
    -  Use the QR decomposition for the first 3 columns of the $P$ matrix into $K,R$; 

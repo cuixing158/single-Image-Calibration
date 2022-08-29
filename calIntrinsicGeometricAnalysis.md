@@ -1,11 +1,10 @@
 [toc]
 # 基于几何方法的单张图像标定之相机内参数学分析
-<center> 2022.8.15 </center>
-<center>  崔星星</center>
-<center> cuixingxing150@gmail.com</center>
+
+<center> cuixingxing150@gmail.com</center> <br>
 
 任意给定不共线的三个空间点坐标，是否存在以该三个点为底面的直角四面体（顶点三条棱线互相垂直的四面体）？如果存在，是否除了以底面对称外的唯一一个顶点坐标？该顶点到底面的垂足是否是底面三角形的垂心？
-结论：不一定存在；若底面三角形垂心位于三角形内(即锐角三角形)，则存在唯一的顶点坐标，该底面垂心即顶点到底面垂足，否在不存在。重点参考文后references.
+结论：不一定存在；若底面三角形垂心位于三角形内(即锐角三角形)，则存在唯一的顶点坐标，该底面垂心即顶点到底面垂足，否在不存在。重点参考文后references.<br>
 
 **以下提供三种方式求解直角四面体的高度h，分别为数值求解、代数求解、利用直角四面体性质求解（推荐）。**
   
@@ -133,15 +132,18 @@ equ3 = dot(BC,cross(BO,CO))==0;
 % solve orthocenter of base triangule ABC, direct solve
 [xo_,yo_,zo_] = solve([equ1,equ2,equ3],[xo,yo,zo])
 ```
-xo_  = 
+xo_  = <br>
 
-   $$ \frac{y_1 \,{y_2 }^2 -{y_1 }^2 \,y_2 -y_1 \,{y_3 }^2 +{y_1 }^2 \,y_3 +y_2 \,{y_3 }^2 -{y_2 }^2 \,y_3 -x_1 \,x_2 \,y_1 +x_1 \,x_2 \,y_2 +x_1 \,x_3 \,y_1 -x_1 \,x_3 \,y_3 -x_2 \,x_3 \,y_2 +x_2 \,x_3 \,y_3 -y_1 \,z_1 \,z_2 +y_1 \,z_1 \,z_3 +y_2 \,z_1 \,z_2 -y_2 \,z_2 \,z_3 -y_3 \,z_1 \,z_3 +y_3 \,z_2 \,z_3 }{x_1 \,y_2 -x_2 \,y_1 -x_1 \,y_3 +x_3 \,y_1 +x_2 \,y_3 -x_3 \,y_2 }$$
+   $$ \frac{y_1 \,{y_2 }^2 -{y_1 }^2 \,y_2 -y_1 \,{y_3 }^2 +{y_1 }^2 \,y_3 +y_2 \,{y_3 }^2 -{y_2 }^2 \,y_3 -x_1 \,x_2 \,y_1 +x_1 \,x_2 \,y_2 +x_1 \,x_3 \,y_1 -x_1 \,x_3 \,y_3 -x_2 \,x_3 \,y_2 +x_2 \,x_3 \,y_3 -y_1 \,z_1 \,z_2 +y_1 \,z_1 \,z_3 +y_2 \,z_1 \,z_2 -y_2 \,z_2 \,z_3 -y_3 \,z_1 \,z_3 +y_3 \,z_2 \,z_3 }{x_1 \,y_2 -x_2 \,y_1 -x_1 \,y_3 +x_3 \,y_1 +x_2 \,y_3 -x_3 \,y_2 }$$ 
+
 yo_ = 
 
-   $$ -\frac{x_1 \,{x_2 }^2 -{x_1 }^2 \,x_2 -x_1 \,{x_3 }^2 +{x_1 }^2 \,x_3 +x_2 \,{x_3 }^2 -{x_2 }^2 \,x_3 -x_1 \,y_1 \,y_2 +x_1 \,y_1 \,y_3 +x_2 \,y_1 \,y_2 -x_2 \,y_2 \,y_3 -x_3 \,y_1 \,y_3 +x_3 \,y_2 \,y_3 -x_1 \,z_1 \,z_2 +x_1 \,z_1 \,z_3 +x_2 \,z_1 \,z_2 -x_2 \,z_2 \,z_3 -x_3 \,z_1 \,z_3 +x_3 \,z_2 \,z_3 }{x_1 \,y_2 -x_2 \,y_1 -x_1 \,y_3 +x_3 \,y_1 +x_2 \,y_3 -x_3 \,y_2 }$$
+   $$ -\frac{x_1 \,{x_2 }^2 -{x_1 }^2 \,x_2 -x_1 \,{x_3 }^2 +{x_1 }^2 \,x_3 +x_2 \,{x_3 }^2 -{x_2 }^2 \,x_3 -x_1 \,y_1 \,y_2 +x_1 \,y_1 \,y_3 +x_2 \,y_1 \,y_2 -x_2 \,y_2 \,y_3 -x_3 \,y_1 \,y_3 +x_3 \,y_2 \,y_3 -x_1 \,z_1 \,z_2 +x_1 \,z_1 \,z_3 +x_2 \,z_1 \,z_2 -x_2 \,z_2 \,z_3 -x_3 \,z_1 \,z_3 +x_3 \,z_2 \,z_3 }{x_1 \,y_2 -x_2 \,y_1 -x_1 \,y_3 +x_3 \,y_1 +x_2 \,y_3 -x_3 \,y_2 }$$ 
+
 zo_ = 
 
-   $$0$$
+   $$0$$ 
+
 
 ```matlab
 AO = pointO-pointA;
@@ -164,9 +166,11 @@ Warning: Solutions are only valid under certain conditions. To include parameter
 a = 
 
    $$ \sqrt{x_2 \,x_3 -x_1 \,x_3 -x_1 \,x_2 -y_1 \,y_2 -y_1 \,y_3 +y_2 \,y_3 -z_1 \,z_2 -z_1 \,z_3 +z_2 \,z_3 +{x_1 }^2 +{y_1 }^2 +{z_1 }^2 }$$
+
 b = 
 
    $$ \sqrt{x_1 \,x_3 -x_1 \,x_2 -x_2 \,x_3 -y_1 \,y_2 +y_1 \,y_3 -y_2 \,y_3 -z_1 \,z_2 +z_1 \,z_3 -z_2 \,z_3 +{x_2 }^2 +{y_2 }^2 +{z_2 }^2 }$$
+
 c = 
 
    $$\sqrt{x_1\,x_2-x_1\,x_3-x_2\,x_3+y_1\,y_2-y_1\,y_3-y_2\,y_3+z_1\,z_2-z_1\,z_3-z_2\,z_3+{x_3}^2+{y_3}^2+{z_3}^2}$$
@@ -176,6 +180,7 @@ h = subs(sqrt(b^2-dot(BO,BO)),[xo,yo,zo],[xo_,yo_,zo_]) % altitude of PO, P点�
 ```
 
 h = 
+
 $$\displaystyle \begin{array}{l}
 \sqrt{x_1 \,x_3 -{{\left(x_2 -\frac{y_1 \,{y_2 }^2 -{y_1 }^2 \,y_2 -y_1 \,{y_3 }^2 +{y_1 }^2 \,y_3 +y_2 \,{y_3 }^2 -{y_2 }^2 \,y_3 -x_1 \,x_2 \,y_1 +x_1 \,x_2 \,y_2 +x_1 \,x_3 \,y_1 -x_1 \,x_3 \,y_3 -x_2 \,x_3 \,y_2 +x_2 \,x_3 \,y_3 -y_1 \,z_1 \,z_2 +y_1 \,z_1 \,z_3 +y_2 \,z_1 \,z_2 -y_2 \,z_2 \,z_3 -y_3 \,z_1 \,z_3 +y_3 \,z_2 \,z_3 }{\sigma_1 }\right)}}^2 -x_1 \,x_2 -{{\left(y_2 +\frac{x_1 \,{x_2 }^2 -{x_1 }^2 \,x_2 -x_1 \,{x_3 }^2 +{x_1 }^2 \,x_3 +x_2 \,{x_3 }^2 -{x_2 }^2 \,x_3 -x_1 \,y_1 \,y_2 +x_1 \,y_1 \,y_3 +x_2 \,y_1 \,y_2 -x_2 \,y_2 \,y_3 -x_3 \,y_1 \,y_3 +x_3 \,y_2 \,y_3 -x_1 \,z_1 \,z_2 +x_1 \,z_1 \,z_3 +x_2 \,z_1 \,z_2 -x_2 \,z_2 \,z_3 -x_3 \,z_1 \,z_3 +x_3 \,z_2 \,z_3 }{\sigma_1 }\right)}}^2 -x_2 \,x_3 -y_1 \,y_2 +y_1 \,y_3 -y_2 \,y_3 -z_1 \,z_2 +z_1 \,z_3 -z_2 \,z_3 +{x_2 }^2 +{y_2 }^2 }\\
 \mathrm{}\\
@@ -183,6 +188,7 @@ $$\displaystyle \begin{array}{l}
 \mathrm{}\\
 \;\;\sigma_1 =x_1 \,y_2 -x_2 \,y_1 -x_1 \,y_3 +x_3 \,y_1 +x_2 \,y_3 -x_3 \,y_2 
 \end{array}$$
+
 
 ```matlab
 normVec = cross(AB,AC)./norm(cross(AB,AC));
@@ -224,14 +230,16 @@ P_coord = simplify(subs(P_coordinate,[x1 y1 z1 x2 y2 z2 x3 y3 z3],values'))
 P_coord = 
 
    $\left(\begin{array}{ccc}0&\frac{4\,\sqrt{3}}{3}&\frac{2\,\sqrt{6}}{3}\end{array}\right)$
+
 ## 利用直角四面体性质求解（推荐）
 
 由于数值求解具有单一性，解析求解的结果过于复杂。故采用直角四面体的性质求解。
+
 $$v=\frac{1}{3}{*S}_{\bigtriangleup\textrm{ABC}}*h=\frac{1}{6}*a*b*c$$
 
 
 
-其中：$\left\|\textrm{PA}\right\|,b=\left\|\textrm{PB}\right\|,c=\left\|\textrm{PC}\right\|$，$v$为四面体体积，$S_{\bigtriangleup \textrm{ABC}}$为底面三角形面积。
+其中： $\left\|\textrm{PA}\right\|,b=\left\|\textrm{PB}\right\|,c=\left\|\textrm{PC}\right\|$ ， $v$ 为四面体体积， $S_{\bigtriangleup \textrm{ABC}}$ 为底面三角形面积。
 
 ```matlab
 syms a b c
@@ -258,8 +266,8 @@ altitude =
    $\frac{2\,\sqrt{6}}{3}$
 
 # References
-[1] [直角四面体Trirectangular_tetrahedron维基百科](https://en.wikipedia.org/wiki/Trirectangular_tetrahedron)
-[2] [直角四面体顶点唯一性分析和证明](https://math.stackexchange.com/questions/547717/trirectangular-tetrahedron-uniqueness-of-vertex-given-base)
-[3] [垂心组orthocenter system维基百科](https://en.wikipedia.org/wiki/Orthocentric_system)
+[1] [直角四面体Trirectangular_tetrahedron维基百科](https://en.wikipedia.org/wiki/Trirectangular_tetrahedron)<br>
+[2] [直角四面体顶点唯一性分析和证明](https://math.stackexchange.com/questions/547717/trirectangular-tetrahedron-uniqueness-of-vertex-given-base)<br>
+[3] [垂心组orthocenter system维基百科](https://en.wikipedia.org/wiki/Orthocentric_system)<br>
 
 
