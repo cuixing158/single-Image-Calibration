@@ -50,7 +50,7 @@ x\\
 \end{array}\right\rbrack\tag{2}$$  
 
 
-又由正交性约束,有${e_i }^T e_j =0$,得：<br>
+又由正交性约束,有 ${e_i }^T e_j =0$ ,得：<br>
 
 $${{\left\lbrack \begin{array}{c}
 x\\
@@ -63,7 +63,7 @@ x\\
  $K$ 的求解通过(3)求解，实现为`calIntrinsicFrom3VanishingPts.m`函数。
 
    -  几何方法： 
-![image_0.png](images/triPlot2.jpg)
+![image_0.png](images/triPlot2.jpg)<br>
 
 四面体PABC为直角四面体（顶点P为互相垂直的三条棱线经过），底面三角形ABC为像平面，A,B,C为图像平面的三个消失点坐标，其中z值为 $f$ ，P点为相机光心，P点到底面ABC的距离为焦距 $f$ ，垂足为底面三角形ABC的垂心，垂心坐标为相机主点 $(u_0,v_0)$ .
 
@@ -82,18 +82,18 @@ x_2 \\
 \end{array}\right\rbrack }_i ={K*R*e}_i\tag{4}$$                                            
 
 两边左乘 $K^{-1}$，
-$$\lambda_i K^{-1} {\left\lbrack \begin{array}{c}
+ $$\lambda_i K^{-1} {\left\lbrack \begin{array}{c}
 x_1 \\
 x_2 \\
 1
 \end{array}\right\rbrack }_i ={R*e}_i\tag{5}$$
 
 
-注意： ${R*e}_1 =\left\lbrack r_{1,} r_2 ,r_3 \right\rbrack \left\lbrack \begin{array}{c}
+注意： $${R*e}_1 =\left\lbrack r_{1,} r_2 ,r_3 \right\rbrack \left\lbrack \begin{array}{c}
 1\\
 0\\
 0
-\end{array}\right\rbrack =r_1$ ,得：
+\end{array}\right\rbrack =r_1$$ ,得：
 
 
 
@@ -132,7 +132,9 @@ X\\
 
 
 
-展开，写成标量形式，即 $$\lambda_i \left\lbrack \begin{array}{c}
+展开，写成标量形式，即 
+
+$$\lambda_i \left\lbrack \begin{array}{c}
 x_1 \\
 x_2 \\
 1
@@ -309,11 +311,15 @@ r_3 P_w \left(x_2 -v_0 \right)-f\left(r_2 P_w \right)
 
 
 
-其中： $r_i =\left\lbrack R_{i,1} ,R_{i,2} ,R_{i,3} \right\rbrack ,P_w =\left\lbrack \begin{array}{c}
+其中： 
+
+$$r_i =\left\lbrack R_{i,1} ,R_{i,2} ,R_{i,3} \right\rbrack ,P_w =\left\lbrack \begin{array}{c}
 X_1 \\
 X_2 \\
 X_3 
-\end{array}\right\rbrack$ ,其余都为标量值。工程上计算直接使用(6a)式，svd求解即可。
+\end{array}\right\rbrack$$ 
+
+,其余都为标量值。工程上计算直接使用(6a)式，svd求解即可。
 
 
 
