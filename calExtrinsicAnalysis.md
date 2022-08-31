@@ -34,20 +34,26 @@ x\\
 \end{array}\right\rbrack =K*\left\lbrack R,t\right\rbrack *\left\lbrack \begin{array}{c}
 e_i \\
 0
-\end{array}\right\rbrack \tag{1}$$
+\end{array}\right\rbrack$$
 
 
 
 
-注意位于无限远处的消失点齐次坐标是 $$\left\lbrack \begin{array}{c}
+注意位于无限远处的消失点齐次坐标是
+
+$$
+\left\lbrack \begin{array}{c}
 e_i \\
 0
-\end{array}\right\rbrack$$ 整理上式，得：<br>
+\end{array}\right\rbrack
+$$ 
+
+整理上式，得：<br>
 
 $$e_i =\lambda_i R^T K^{-1} \left\lbrack \begin{array}{c}
 x\\
 1
-\end{array}\right\rbrack\tag{2}$$  
+\end{array}\right\rbrack$$  
 
 
 又由正交性约束,有 ${e_i }^T e_j =0$ ,得：<br>
@@ -58,7 +64,7 @@ x\\
 \end{array}\right\rbrack }_i }^T K^{-T} K^{-1} {\left\lbrack \begin{array}{c}
 x\\
 1
-\end{array}\right\rbrack }_j =0\tag{3}$$
+\end{array}\right\rbrack }_j =0$$
 
  $K$ 的求解通过(3)求解，实现为`calIntrinsicFrom3VanishingPts.m`函数。
 
@@ -75,33 +81,44 @@ x\\
 
    -  代数方法： 
 
-由 $$\lambda_i {\left\lbrack \begin{array}{c}
+由 
+
+$$
+\lambda_i {\left\lbrack \begin{array}{c}
 x_1 \\
 x_2 \\
 1
-\end{array}\right\rbrack }_i ={K*R*e}_i\tag{4}$$                                            
+\end{array}\right\rbrack }_i ={K*R*e}_i
+$$                                          
 
-两边左乘 $K^{-1}$，
- $$\lambda_i K^{-1} {\left\lbrack \begin{array}{c}
+两边左乘 $K^{-1}$， 
+
+$$\lambda_i K^{-1} {\left\lbrack \begin{array}{c}
 x_1 \\
 x_2 \\
 1
-\end{array}\right\rbrack }_i ={R*e}_i\tag{5}$$
+\end{array}\right\rbrack }_i ={R*e}_i$$
 
 
-注意： $${R*e}_1 =\left\lbrack r_{1,} r_2 ,r_3 \right\rbrack \left\lbrack \begin{array}{c}
+注意：  
+
+$${R*e}_1 =\left\lbrack r_{1,} r_2 ,r_3 \right\rbrack \left\lbrack \begin{array}{c}
 1\\
 0\\
 0
-\end{array}\right\rbrack =r_1$$ ,得：
+\end{array}\right\rbrack =r_1$$ 
+
+得：
 
 
 
-${r_i =\lambda }_i K^{-1} {\left\lbrack \begin{array}{c}
+$${r_i =\lambda }_i K^{-1} {\left\lbrack \begin{array}{c}
 x_1 \\
 x_2 \\
 1
-\end{array}\right\rbrack }_i$ ，(其中 $\lambda_i$ 可以通过 $\left\|r_i \right\|=1$ 约束求解，这里 $r_i$ 为外参旋转矩阵的第 $i$ 列)
+\end{array}\right\rbrack }_i$$ 
+
+其中 $\lambda_i$ 可以通过 $\left\|r_i \right\|=1$ 约束求解，这里 $r_i$ 为外参旋转矩阵的第 $i$ 列。
 
    -  几何方法： 
 
@@ -382,7 +399,7 @@ Q =
 \mathrm{}\\
 \textrm{where}\\
 \mathrm{}\\
-\;\;\sigma_1 =\frac{l_2 \,x_0 \,x_1 -l_2 \,x_1 \,x_2 -l_1 \,x_0 \,y_1 +l_1 \,x_0 \,y_2 -l_1 \,x_2 \,y_0 +l_1 \,x_2 \,y_1 }{l_2 \,x_0 -l_2 \,x_2 -l_1 \,y_0 +l_1 \,y_2 }
+\sigma_1 =\frac{l_2 \,x_0 \,x_1 -l_2 \,x_1 \,x_2 -l_1 \,x_0 \,y_1 +l_1 \,x_0 \,y_2 -l_1 \,x_2 \,y_0 +l_1 \,x_2 \,y_1 }{l_2 \,x_0 -l_2 \,x_2 -l_1 \,y_0 +l_1 \,y_2 }
 \end{array}$$
 
 
@@ -391,7 +408,7 @@ Q =
 
 
 
-主要利用相似三角形计算，由Fig2中成像过程，可知 $\bigtriangleup \textrm{PMQ}\sim \bigtriangleup {\textrm{PM}}_w N_w$ ，点 $M_w$、$N_w$ 分别为图像中 $M$ 、 $N$ 点对应世界坐标系中的点，因在世界坐标系中 $\left\|\textrm{MN}\right\|$ 模已知，故可求解 $M$ 点的深度，从而推出外参 $T$ ，详细见`demoOneImgCalibrate.m`实现。
+主要利用相似三角形计算，由Fig2中成像过程，可知 $\bigtriangleup \textrm{PMQ}\sim \bigtriangleup {\textrm{PM}}_w N_w$ ，点 $M_w、N_w$ 分别为图像中 $M$ 、 $N$ 点对应世界坐标系中的点，因在世界坐标系中 $\left\|\textrm{MN}\right\|$ 模已知，故可求解 $M$ 点的深度，从而推出外参 $T$ ，详细见`demoOneImgCalibrate.m`实现。
 
 
 ## References
