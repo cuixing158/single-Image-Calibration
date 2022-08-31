@@ -186,7 +186,7 @@ $$\displaystyle \begin{array}{l}
 \mathrm{}\\
 \textrm{where}\\
 \mathrm{}\\
-\;\;\sigma_1 =x_1 \,y_2 -x_2 \,y_1 -x_1 \,y_3 +x_3 \,y_1 +x_2 \,y_3 -x_3 \,y_2 
+\sigma_1 =x_1 \,y_2 -x_2 \,y_1 -x_1 \,y_3 +x_3 \,y_1 +x_2 \,y_3 -x_3 \,y_2 
 \end{array}$$
 
 
@@ -207,7 +207,7 @@ P_coordinate = [x,y,z]
 
 P_coordinate = 
 
-   $$\begin{array}{l}\left(\begin{array}{ccc}\sigma_3+\frac{\sigma_1\,\sigma_5}{\sigma_2}&-\sigma_4-\frac{\sigma_1\,\sigma_6}{\sigma_2}&\frac{\sigma_1\,\sigma_7}{\sigma_2}\end{array}\right)\\\mathrm{}\\\textrm{where}\\\mathrm{}\\\;\;\sigma_1=\overline{\sqrt{x_1\,x_3-{{\left(x_2-\sigma_3\right)}}^2-x_1\,x_2-{{\left(y_2+\sigma_4\right)}}^2-x_2\,x_3-y_1\,y_2+y_1\,y_3-y_2\,y_3-z_1\,z_2+z_1\,z_3-z_2\,z_3+{x_2}^2+{y_2}^2}}\\\mathrm{}\\\;\;\sigma_2=\sqrt{{\left|\sigma_7\right|}^2+{\left|\sigma_6\right|}^2+{\left|\sigma_5\right|}^2}\\\mathrm{}\\\;\;\sigma_3=\frac{y_1\,{y_2}^2-{y_1}^2\,y_2-y_1\,{y_3}^2+{y_1}^2\,y_3+y_2\,{y_3}^2-{y_2}^2\,y_3-x_1\,x_2\,y_1+x_1\,x_2\,y_2+x_1\,x_3\,y_1-x_1\,x_3\,y_3-x_2\,x_3\,y_2+x_2\,x_3\,y_3-y_1\,z_1\,z_2+y_1\,z_1\,z_3+y_2\,z_1\,z_2-y_2\,z_2\,z_3-y_3\,z_1\,z_3+y_3\,z_2\,z_3}{\sigma_8}\\\mathrm{}\\\;\;\sigma_4=\frac{x_1\,{x_2}^2-{x_1}^2\,x_2-x_1\,{x_3}^2+{x_1}^2\,x_3+x_2\,{x_3}^2-{x_2}^2\,x_3-x_1\,y_1\,y_2+x_1\,y_1\,y_3+x_2\,y_1\,y_2-x_2\,y_2\,y_3-x_3\,y_1\,y_3+x_3\,y_2\,y_3-x_1\,z_1\,z_2+x_1\,z_1\,z_3+x_2\,z_1\,z_2-x_2\,z_2\,z_3-x_3\,z_1\,z_3+x_3\,z_2\,z_3}{\sigma_8}\\\mathrm{}\\\;\;\sigma_5={\left(y_1-y_2\right)}\,{\left(z_1-z_3\right)}-{\left(y_1-y_3\right)}\,{\left(z_1-z_2\right)}\\\mathrm{}\\\;\;\sigma_6={\left(x_1-x_2\right)}\,{\left(z_1-z_3\right)}-{\left(x_1-x_3\right)}\,{\left(z_1-z_2\right)}\\\mathrm{}\\\;\;\sigma_7={\left(x_1-x_2\right)}\,{\left(y_1-y_3\right)}-{\left(x_1-x_3\right)}\,{\left(y_1-y_2\right)}\\\mathrm{}\\\;\;\sigma_8=x_1\,y_2-x_2\,y_1-x_1\,y_3+x_3\,y_1+x_2\,y_3-x_3\,y_2\end{array}$$
+   $$\begin{array}{l}\left(\begin{array}{ccc}\sigma_3+\frac{\sigma_1\,\sigma_5}{\sigma_2}&-\sigma_4-\frac{\sigma_1\,\sigma_6}{\sigma_2}&\frac{\sigma_1\,\sigma_7}{\sigma_2}\end{array}\right)\\\\\textrm{where}\\\ \sigma_1=\overline{\sqrt{x_1\,x_3-{{\left(x_2-\sigma_3\right)}}^2-x_1\,x_2-{{\left(y_2+\sigma_4\right)}}^2-x_2\,x_3-y_1\,y_2+y_1\,y_3-y_2\,y_3-z_1\,z_2+z_1\,z_3-z_2\,z_3+{x_2}^2+{y_2}^2}}\\\ \sigma_2=\sqrt{{\left|\sigma_7\right|}^2+{\left|\sigma_6\right|}^2+{\left|\sigma_5\right|}^2}\\\ \sigma_3=\frac{y_1\,{y_2}^2-{y_1}^2\,y_2-y_1\,{y_3}^2+{y_1}^2\,y_3+y_2\,{y_3}^2-{y_2}^2\,y_3-x_1\,x_2\,y_1+x_1\,x_2\,y_2+x_1\,x_3\,y_1-x_1\,x_3\,y_3-x_2\,x_3\,y_2+x_2\,x_3\,y_3-y_1\,z_1\,z_2+y_1\,z_1\,z_3+y_2\,z_1\,z_2-y_2\,z_2\,z_3-y_3\,z_1\,z_3+y_3\,z_2\,z_3}{\sigma_8}\\\ \sigma_4=\frac{x_1\,{x_2}^2-{x_1}^2\,x_2-x_1\,{x_3}^2+{x_1}^2\,x_3+x_2\,{x_3}^2-{x_2}^2\,x_3-x_1\,y_1\,y_2+x_1\,y_1\,y_3+x_2\,y_1\,y_2-x_2\,y_2\,y_3-x_3\,y_1\,y_3+x_3\,y_2\,y_3-x_1\,z_1\,z_2+x_1\,z_1\,z_3+x_2\,z_1\,z_2-x_2\,z_2\,z_3-x_3\,z_1\,z_3+x_3\,z_2\,z_3}{\sigma_8}\\\ \sigma_5={\left(y_1-y_2\right)}\,{\left(z_1-z_3\right)}-{\left(y_1-y_3\right)}\,{\left(z_1-z_2\right)}\\\ \sigma_6={\left(x_1-x_2\right)}\,{\left(z_1-z_3\right)}-{\left(x_1-x_3\right)}\,{\left(z_1-z_2\right)}\\\ \sigma_7={\left(x_1-x_2\right)}\,{\left(y_1-y_3\right)}-{\left(x_1-x_3\right)}\,{\left(y_1-y_2\right)}\\\ \sigma_8=x_1\,y_2-x_2\,y_1-x_1\,y_3+x_3\,y_1+x_2\,y_3-x_3\,y_2\end{array}$$
 
 
 示例：对于底面三角形ABC的三个顶点坐标分别为(0,0,0),  (2,2*sqrt(3),0),  (-2,2*sqrt(3),0)，然后我可以通过上式直接计算获取高度h和P点坐标。
