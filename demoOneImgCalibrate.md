@@ -1,18 +1,14 @@
 [toc]
+
 # Implementation and visualisation of multiple classical calibration methods based on a single image
+
 # 基于单张图像的多种经典标定方法实现与可视化
+
 <center> cuixingxing150@gmail.com</center>
-
-
-
 
 Implementation and visualisation of multiple classical linear calibration methods for a single image.This repo aims to provide as many single image calibration methods as possible for linear [pinhole cameras](https://en.wikipedia.org/wiki/Pinhole_camera_model#The_geometry_and_mathematics_of_the_pinhole_camera), solving for camera intrinsic and extrinsic parameters based on known 3D-2D or other auxiliary conditions, and presenting them in the most intuitive way,deepening the understanding of the camera imaging process.
 
-
-
-
 仅使用单张图像完成多种经典标定方法实现与可视化。本仓库旨在提供尽可能多的单张图像标定方法，线性[针孔相机](https://en.wikipedia.org/wiki/Pinhole_camera_model#The_geometry_and_mathematics_of_the_pinhole_camera)，根据已知的3D-2D或其他辅助条件求解相机内参和外参，并以最直观的方式呈现，加深对相机成像过程的理解。
-
 
 ## Preliminary materials
 
@@ -22,28 +18,19 @@ imshow(srcImage);
 title("source image")
 ```
 
-
 ![figure_0.png](images/figure_0.png)
 
 ### step1: Known 3D-2D correspondence points (all methods required)
 
-
 In the *plotGroundTruth3D* function there is a defined set of known 3D points for each object plotted in 3D space, colours, labels.The short red, green and blue lines at the corner points of the diagram are the X,Y,Z axes of a custom world coordinate system.
-
-
 
 ```matlab
 [figObj,worldPoints,objectLabels,colors] = plotGroundTruth3D();%GroundTruth figure
 ```
 
-
 ![figure_1.png](images/figure_1.png)
 
-
-
 There are various ways to get the 2D pixel points corresponding to the 3D points in the `worldPoints` above. This example shows how easy it is to draw a quadrilateral interactively to get the 2D pixel points `imagePoints`.
-
-
 
 ```matlab
 if ~isfile("data/imgPts.mat")
@@ -61,15 +48,9 @@ end
 
 ### step2: Find Camera Principle Point(Not all methods required)<a name="1.2"></a>
 
-
 The coordinates of the vertical centre of a triangle formed by the intersection of three sets of mutually orthogonal parallel lines in space, i.e. the intersection of three sets of vanishing lines (vanishing points) in the corresponding image, are the **camera principle point**.This example program draws red, green and blue lines for each of these three sets of orthogonal vanishing lines.For background material see the Geometric Solution Analysis section in *calExtrinsicAnalysis.mlx* in this repo.
 
-
-
-
 If an image is visually very difficult to find three pairs of orthogonal vanishing lines, then at least two pairs of orthogonal lines should be found, assuming in addition that the  camera principle point is at the centre of the image.Then the intersection of the third set of orthogonal vanishing lines (i.e. the third vanishing point) can  be deduced from [orthocenter system](https://en.wikipedia.org/wiki/Orthocentric_system) theorem and the rest of the steps remain the same.See the *calIntrinsicGeometricAnalysis.mlx* section of this repo for analysis related to the algebraic solution of the orthocenter coordinates.
-
-
 
 ```matlab
 figure(Name="Draw three sets of orthogonal parallel lines");
@@ -129,27 +110,20 @@ zoom(0.1)
 
 ## Method1：Decompose camera projection matrix(QR decomposition)<a name="M1"></a>
 
-
 The method has no special requirements and requires only a number of 3D-2D correspondence points(at least 6 pairs of non-coplanar points) in a single image to be solved, no vanishing point calculation is required.
-
-
-
 
 The main algorithmic steps are:
 
+   1. Estimate the camera projection matrix <img src="https://latex.codecogs.com/gif.latex?\inline&space;P"/> based on the 3D-2D points
+   1. Decompose  $P$ into $K,R$ and $T$ ( $P=K\left\lbrack R,T\right\rbrack)$  
 
-
-   1.  Estimate the camera projection matrix <img src="https://latex.codecogs.com/gif.latex?\inline&space;P"/> based on the 3D-2D points 
-   1.  Decompose  $P$ into $K,R$ and $T$ ( $P=K\left\lbrack R,T\right\rbrack)$  
-
-
-   -  Use the QR decomposition for the first 3 columns of the $P$ matrix into $K,R$; 
-   - Calculate $T$  
+- Use the QR decomposition for the first 3 columns of the $P$ matrix into $K,R$;
+- Calculate $T$  
 
 $$T=K^{-1} \left\lbrack \begin{array}{c}
 P_{14} \\
 P_{24} \\
-P_{34} 
+P_{34}
 \end{array}\right\rbrack$$
 
 The camera intrinsic $K$ have the following form:
@@ -159,7 +133,6 @@ f_x  & s & u_0 \\
 0 & f_y  & v_0 \\
 0 & 0 & 1
 \end{array}\right\rbrack$$
-
 
 ```matlab
 [~,intrinsicK1, extrinsicR1, extrinsicT1] = oneImageCalibrate3D(imagePoints,worldPoints);
@@ -171,44 +144,24 @@ plotCamera(AbsolutePose=rigid3d(orientation,location),Size=10,...
     Color='black',AxesVisible=1,Label="M1");
 ```
 
-
 ![figure_3.png](images/figure_3.png)
 
 ## Method2：Decompose camera projection matrix(intrinsic and extrinsic properties)<a name="M2"></a>
 
-
 The method also has no special requirements and requires only a number of 3D-2D correspondence points(at least 6 pairs of non-coplanar points) in a single image to be solved, no vanishing point calculation is required.
-
-
-
 
 The main algorithmic steps are:
 
-
-
-   1.  Estimate the camera projection matrix $P$ based on the 3D-2D points 
-   1.  Decompose $P$ into $K,R$ and $T$ using Faugeras Theorem(1993). 
-
-
+   1. Estimate the camera projection matrix $P$ based on the 3D-2D points
+   1. Decompose $P$ into $K,R$ and $T$ using Faugeras Theorem(1993).
 
 ![image_0.png](images/camIntrinsicExtrinsic1.jpg)
 
-
-
-
 ![image_1.png](images/camIntrinsicExtrinsic2.jpg)
-
-
-
 
 ![image_2.png](images/camIntrinsicExtrinsic3.jpg)
 
-
-
-
 ![image_3.png](images/camIntrinsicExtrinsic4.jpg)
-
-
 
 ```matlab
 % or use matlab build-in function estimateCameraMatrix function,but note that the outputs are transposed to each other and the conventions are different
@@ -222,27 +175,19 @@ plotCamera(AbsolutePose=rigid3d(orientation,location),Size=10,...
     Color='cyan',AxesVisible=1,Label="M2");
 ```
 
-
 ![figure_4.png](images/figure_4.png)
 
 ## Method3：tsai calibration<a name="M3"></a>
 
-
 For more information: Berthold K.P. Horn,Tsai’s camera calibration method revisited,2000
 
-
-
-
 The camera intrinsic $K$ have the following form:
-
-
 
 $$K=\left\lbrack \begin{array}{ccc}
 f_x  & 0 & u_0 \\
 0 & f_y  & v_0 \\
 0 & 0 & 1
 \end{array}\right\rbrack$$
-
 
 ```matlab
 [intrinsicK3,extrinsicR3,extrinsicT3] = tsaiCalibrate(...
@@ -256,27 +201,19 @@ plotCamera(AbsolutePose=rigid3d(orientation,location),Size=10,Color='red',...
     AxesVisible=1,Label="M3");
 ```
 
-
 ![figure_5.png](images/figure_5.png)
 
 ## Method4：Geometric solution <a name="M4"></a>
 
-
-The principal point is the orthocenter of the base triangle, the focal length is the height of the right-angled tetrahedron, the direction of the extrinsic rotation matrix is parallel to the prism of the tetrahedron, and the extrinsic translation vector is the proportion of similar triangles. For further details see *[calIntrinsicGeometricAnalysis](./calIntrinsicGeometricAnalysis.md) *and* [calExtrinsicAnalysis](./calExtrinsicAnalysis.md)*.
-
-
-
+The principal point is the orthocenter of the base triangle, the focal length is the height of the right-angled tetrahedron, the direction of the extrinsic rotation matrix is parallel to the prism of the tetrahedron, and the extrinsic translation vector is the proportion of similar triangles. For further details see *[calIntrinsicGeometricAnalysis](https://github.com/cuixing158/singleImageCalibration/blob/main/calIntrinsicGeometricAnalysis.md)* and *[calExtrinsicAnalysis](https://github.com/cuixing158/singleImageCalibration/blob/main/calExtrinsicAnalysis.md).*
 
 Note:the camera intrinsic $K$ must be in the following form:
-
-
 
 $$K=\left\lbrack \begin{array}{ccc}
 f & 0 & u_0 \\
 0 & f & v_0 \\
 0 & 0 & 1
 \end{array}\right\rbrack$$
-
 
 ```matlab
 pointA = [vanishingA,0];
@@ -322,9 +259,7 @@ plotCamera(AbsolutePose=rigid3d(cameraOri,cameraLoc),Size=10,Color='green',...
     AxesVisible=1,Label="M4");
 ```
 
-
 ![figure_6.png](images/figure_6.png)
-
 
 ```matlab
 % plot in 3D view(相机像素坐标系下)
@@ -333,27 +268,19 @@ plotCameraProjection3D(srcImage,l11,l12,l21,l22,l31,l32,vanishingPts, ...
     cornerNInCamera,P,Q);
 ```
 
-
 ![figure_7.png](images/cameraProject3.jpg)
 
 ## Method5：Algebraic solution<a name="M5"></a>
 
-
-For more information,see *[calExtrinsicAnalysis](./calExtrinsicAnalysis.md).*
-
-
-
+For more information,see *[calExtrinsicAnalysis](https://github.com/cuixing158/singleImageCalibration/blob/main/calExtrinsicAnalysis.md).*
 
 Note: the camera intrinsic <img src="https://latex.codecogs.com/gif.latex?\inline&space;K"/> must be also in the following form:
-
-
 
 $$K=\left\lbrack \begin{array}{ccc}
 f & 0 & u_0 \\
 0 & f & v_0 \\
 0 & 0 & 1
 \end{array}\right\rbrack$$
-
 
 ```matlab
 intrinsicK5 = calIntrinsicFrom3VanishingPts([vanishingA,1],[vanishingB,1],[vanishingC,1]);
@@ -383,11 +310,9 @@ intrinsics = cameraIntrinsics(K(1,1),[K(1,3),K(2,3)],[H,W]);
 [worldOrientation,worldLocation,inlierIdx,status] = estimateWorldCameraPose(imagePoints,worldPoints,intrinsics);
 ```
 
-
 ```text
 Warning: Maximum number of trials reached. Consider increasing the maximum distance or decreasing the desired confidence.
 ```
-
 
 ```matlab
 figure(figObj);hold on;axis([-100,200,-150,270,0,250]);view([82,38]);
@@ -395,15 +320,11 @@ plotCamera(AbsolutePose=rigid3d(worldOrientation,worldLocation),Size=10,Color='m
     AxesVisible=1,Label="M5");
 ```
 
-
 ![figure_8.png](images/figure_8.png)
 
 ## Results<a name="results"></a>
 
-
 show all calibration intrinsic and extrinsic params:
-
-
 
 ```matlab
 intrinsicK = {intrinsicK1,intrinsicK2,intrinsicK3,intrinsicK4,intrinsicK5};
@@ -423,7 +344,6 @@ for i = 1:length(intrinsicK)
     fprintf("------------------------------")
 end
 ```
-
 
 ```text
 method 1 intrinsic K:
@@ -496,7 +416,6 @@ method 5 extrinsic T:
 ------------------------------
 ```
 
-  
 ## support function
 
 ```matlab
@@ -508,4 +427,3 @@ else
 end
 end
 ```
-

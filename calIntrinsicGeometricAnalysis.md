@@ -1,4 +1,5 @@
 [toc]
+
 # 基于几何方法的单张图像标定之相机内参数学分析
 
 <center> cuixingxing150@gmail.com</center> <br>
@@ -11,6 +12,7 @@
 ## 示意图
 
 已知直角四面体PABC，共顶点P的三条棱线PA,PB,PC互相垂直，求点P到底面ABC的距离d。（点P到底面ABC的垂足即三角形ABC的垂心）
+
 ```matlab
 % 模拟四面体的四个顶点坐标[x,y,z],任意人为给定的
 vertices = [0,2,2;% A 
@@ -25,9 +27,11 @@ text(vertices(:,1),vertices(:,2),vertices(:,3),...
 axis off;
 title("已知直角四面体底面A,B,C坐标，求顶点P坐标（示意图）")
 ```
+
 ![triPlot1.png](images/triPlot1.png)
 
 ## 数值求解
+
 用A,B,C数值直接代入求解
 
 ```matlab
@@ -59,7 +63,7 @@ sol1 = solve([equ1,equ2,equ3],[x,y,z],ReturnConditions=true);% 求解方程组
 P = simplify([sol1.x(1),sol1.y(1),sol1.z(1)])
 ```
 
-P = 
+P =
 
    <img src="https://latex.codecogs.com/gif.latex?\left(\begin{array}{ccc}0&\frac{4\,\sqrt{3}}{3}&\frac{2\,\sqrt{6}}{3}\end{array}\right)"/>
 
@@ -75,7 +79,6 @@ text(vertices(:,1),vertices(:,2),vertices(:,3),...
 axis off
 ```
 
-
 求顶点P到底面距离C，其中底面法向量为n
 
 ```matlab
@@ -84,7 +87,7 @@ C = abs(dot(PA,n./norm(n)));
 h = simplify(subs(C,[x,y,z],[sol1.x(1),sol1.y(1),sol1.z(1)]))
 ```
 
-h = 
+h =
 
    <img src="https://latex.codecogs.com/gif.latex?\frac{2\,\sqrt{6}}{3}"/>
 
@@ -102,10 +105,13 @@ scatter3(orthoCenter(1,1),orthoCenter(1,2),orthoCenter(1,3),"filled",MarkerFaceC
 text(orthoCenter(1,1),orthoCenter(1,2),orthoCenter(1,3),"Oc",FontSize=15,FontWeight="bold")
 title("修正后的标准直角四面体（P为直角顶点）")
 ```
+
 ![triPlot2.jpg](images/triPlot2.jpg)
 
 ## 代数求解
+
 给定底面任意三个点坐标A,B,C，求直角四面体的顶点坐标P。
+
 ```matlab
 syms  x y z x1 y1 z1 x2 y2 z2 x3 y3 z3 xo yo zo
 assume([x y z x1 y1 z1 x2 y2 z2 x3 y3 z3 xo yo zo],'real')
@@ -132,23 +138,24 @@ equ3 = dot(BC,cross(BO,CO))==0;
 % solve orthocenter of base triangule ABC, direct solve
 [xo_,yo_,zo_] = solve([equ1,equ2,equ3],[xo,yo,zo])
 ```
+
 xo_  = <br>
 
-   $$ \frac{y_1 \,{y_2 }^2 -{y_1 }^2 \,y_2 -y_1 \,{y_3 }^2 +{y_1 }^2 \,y_3 +y_2 \,{y_3 }^2 -{y_2 }^2 \,y_3 -x_1 \,x_2 \,y_1 +x_1 \,x_2 \,y_2 +x_1 \,x_3 \,y_1 -x_1 \,x_3 \,y_3 -x_2 \,x_3 \,y_2 +x_2 \,x_3 \,y_3 -y_1 \,z_1 \,z_2 +y_1 \,z_1 \,z_3 +y_2 \,z_1 \,z_2 -y_2 \,z_2 \,z_3 -y_3 \,z_1 \,z_3 +y_3 \,z_2 \,z_3 }{x_1 \,y_2 -x_2 \,y_1 -x_1 \,y_3 +x_3 \,y_1 +x_2 \,y_3 -x_3 \,y_2 }$$ 
+   $$ \frac{y_1 \,{y_2 }^2 -{y_1 }^2 \,y_2 -y_1 \,{y_3 }^2 +{y_1 }^2 \,y_3 +y_2 \,{y_3 }^2 -{y_2 }^2 \,y_3 -x_1 \,x_2 \,y_1 +x_1 \,x_2 \,y_2 +x_1 \,x_3 \,y_1 -x_1 \,x_3 \,y_3 -x_2 \,x_3 \,y_2 +x_2 \,x_3 \,y_3 -y_1 \,z_1 \,z_2 +y_1 \,z_1 \,z_3 +y_2 \,z_1 \,z_2 -y_2 \,z_2 \,z_3 -y_3 \,z_1 \,z_3 +y_3 \,z_2 \,z_3 }{x_1 \,y_2 -x_2 \,y_1 -x_1 \,y_3 +x_3 \,y_1 +x_2 \,y_3 -x_3 \,y_2 }$$
 
-yo_ = 
+yo_ =
 
-   $$ -\frac{x_1 \,{x_2 }^2 -{x_1 }^2 \,x_2 -x_1 \,{x_3 }^2 +{x_1 }^2 \,x_3 +x_2 \,{x_3 }^2 -{x_2 }^2 \,x_3 -x_1 \,y_1 \,y_2 +x_1 \,y_1 \,y_3 +x_2 \,y_1 \,y_2 -x_2 \,y_2 \,y_3 -x_3 \,y_1 \,y_3 +x_3 \,y_2 \,y_3 -x_1 \,z_1 \,z_2 +x_1 \,z_1 \,z_3 +x_2 \,z_1 \,z_2 -x_2 \,z_2 \,z_3 -x_3 \,z_1 \,z_3 +x_3 \,z_2 \,z_3 }{x_1 \,y_2 -x_2 \,y_1 -x_1 \,y_3 +x_3 \,y_1 +x_2 \,y_3 -x_3 \,y_2 }$$ 
+   $$ -\frac{x_1 \,{x_2 }^2 -{x_1 }^2 \,x_2 -x_1 \,{x_3 }^2 +{x_1 }^2 \,x_3 +x_2 \,{x_3 }^2 -{x_2 }^2 \,x_3 -x_1 \,y_1 \,y_2 +x_1 \,y_1 \,y_3 +x_2 \,y_1 \,y_2 -x_2 \,y_2 \,y_3 -x_3 \,y_1 \,y_3 +x_3 \,y_2 \,y_3 -x_1 \,z_1 \,z_2 +x_1 \,z_1 \,z_3 +x_2 \,z_1 \,z_2 -x_2 \,z_2 \,z_3 -x_3 \,z_1 \,z_3 +x_3 \,z_2 \,z_3 }{x_1 \,y_2 -x_2 \,y_1 -x_1 \,y_3 +x_3 \,y_1 +x_2 \,y_3 -x_3 \,y_2 }$$
 
-zo_ = 
+zo_ =
 
-   $$0$$ 
-
+   $$0$$
 
 ```matlab
 AO = pointO-pointA;
 BO = pointO-pointB;
 ```
+
 Set $a=\left\|\textrm{PA}\right\|,b=\left\|\textrm{PB}\right\|,c=\left\|\textrm{PC}\right\|$
 
 ```matlab
@@ -163,15 +170,15 @@ equs3 = a.^2+c.^2==dot(AC,AC);
 Warning: Solutions are only valid under certain conditions. To include parameters and conditions in the solution, specify the 'ReturnConditions' value as 'true'.
 ```
 
-a = 
+a =
 
    $$ \sqrt{x_2 \,x_3 -x_1 \,x_3 -x_1 \,x_2 -y_1 \,y_2 -y_1 \,y_3 +y_2 \,y_3 -z_1 \,z_2 -z_1 \,z_3 +z_2 \,z_3 +{x_1 }^2 +{y_1 }^2 +{z_1 }^2 }$$
 
-b = 
+b =
 
    $$ \sqrt{x_1 \,x_3 -x_1 \,x_2 -x_2 \,x_3 -y_1 \,y_2 +y_1 \,y_3 -y_2 \,y_3 -z_1 \,z_2 +z_1 \,z_3 -z_2 \,z_3 +{x_2 }^2 +{y_2 }^2 +{z_2 }^2 }$$
 
-c = 
+c =
 
    $$\sqrt{x_1\,x_2-x_1\,x_3-x_2\,x_3+y_1\,y_2-y_1\,y_3-y_2\,y_3+z_1\,z_2-z_1\,z_3-z_2\,z_3+{x_3}^2+{y_3}^2+{z_3}^2}$$
 
@@ -179,16 +186,15 @@ c =
 h = subs(sqrt(b^2-dot(BO,BO)),[xo,yo,zo],[xo_,yo_,zo_]) % altitude of PO, P点垂足即为O点，也即底面三角形垂心
 ```
 
-h = 
+h =
 
 $$\displaystyle \begin{array}{l}
 \sqrt{x_1 \,x_3 -{{\left(x_2 -\frac{y_1 \,{y_2 }^2 -{y_1 }^2 \,y_2 -y_1 \,{y_3 }^2 +{y_1 }^2 \,y_3 +y_2 \,{y_3 }^2 -{y_2 }^2 \,y_3 -x_1 \,x_2 \,y_1 +x_1 \,x_2 \,y_2 +x_1 \,x_3 \,y_1 -x_1 \,x_3 \,y_3 -x_2 \,x_3 \,y_2 +x_2 \,x_3 \,y_3 -y_1 \,z_1 \,z_2 +y_1 \,z_1 \,z_3 +y_2 \,z_1 \,z_2 -y_2 \,z_2 \,z_3 -y_3 \,z_1 \,z_3 +y_3 \,z_2 \,z_3 }{\sigma_1 }\right)}}^2 -x_1 \,x_2 -{{\left(y_2 +\frac{x_1 \,{x_2 }^2 -{x_1 }^2 \,x_2 -x_1 \,{x_3 }^2 +{x_1 }^2 \,x_3 +x_2 \,{x_3 }^2 -{x_2 }^2 \,x_3 -x_1 \,y_1 \,y_2 +x_1 \,y_1 \,y_3 +x_2 \,y_1 \,y_2 -x_2 \,y_2 \,y_3 -x_3 \,y_1 \,y_3 +x_3 \,y_2 \,y_3 -x_1 \,z_1 \,z_2 +x_1 \,z_1 \,z_3 +x_2 \,z_1 \,z_2 -x_2 \,z_2 \,z_3 -x_3 \,z_1 \,z_3 +x_3 \,z_2 \,z_3 }{\sigma_1 }\right)}}^2 -x_2 \,x_3 -y_1 \,y_2 +y_1 \,y_3 -y_2 \,y_3 -z_1 \,z_2 +z_1 \,z_3 -z_2 \,z_3 +{x_2 }^2 +{y_2 }^2 }\\
 \mathrm{}\\
 \textrm{where}\\
 \mathrm{}\\
-\sigma_1 =x_1 \,y_2 -x_2 \,y_1 -x_1 \,y_3 +x_3 \,y_1 +x_2 \,y_3 -x_3 \,y_2 
+\sigma_1 =x_1 \,y_2 -x_2 \,y_1 -x_1 \,y_3 +x_3 \,y_1 +x_2 \,y_3 -x_3 \,y_2
 \end{array}$$
-
 
 ```matlab
 normVec = cross(AB,AC)./norm(cross(AB,AC));
@@ -200,15 +206,16 @@ x = xo_+dot(n,x_uint);
 y = yo_+dot(n,y_uint);
 z = zo_+dot(n,z_uint);
 ```
+
 顶点P的解析解坐标为：
+
 ```matlab
 P_coordinate = [x,y,z]
 ```
 
-P_coordinate = 
+P_coordinate =
 
    $$\begin{array}{l}\left(\begin{array}{ccc}\sigma_3+\frac{\sigma_1\,\sigma_5}{\sigma_2}&-\sigma_4-\frac{\sigma_1\,\sigma_6}{\sigma_2}&\frac{\sigma_1\,\sigma_7}{\sigma_2}\end{array}\right)\\\\\textrm{where}\\\ \sigma_1=\overline{\sqrt{x_1\,x_3-{{\left(x_2-\sigma_3\right)}}^2-x_1\,x_2-{{\left(y_2+\sigma_4\right)}}^2-x_2\,x_3-y_1\,y_2+y_1\,y_3-y_2\,y_3-z_1\,z_2+z_1\,z_3-z_2\,z_3+{x_2}^2+{y_2}^2}}\\\ \sigma_2=\sqrt{{\left|\sigma_7\right|}^2+{\left|\sigma_6\right|}^2+{\left|\sigma_5\right|}^2}\\\ \sigma_3=\frac{y_1\,{y_2}^2-{y_1}^2\,y_2-y_1\,{y_3}^2+{y_1}^2\,y_3+y_2\,{y_3}^2-{y_2}^2\,y_3-x_1\,x_2\,y_1+x_1\,x_2\,y_2+x_1\,x_3\,y_1-x_1\,x_3\,y_3-x_2\,x_3\,y_2+x_2\,x_3\,y_3-y_1\,z_1\,z_2+y_1\,z_1\,z_3+y_2\,z_1\,z_2-y_2\,z_2\,z_3-y_3\,z_1\,z_3+y_3\,z_2\,z_3}{\sigma_8}\\\ \sigma_4=\frac{x_1\,{x_2}^2-{x_1}^2\,x_2-x_1\,{x_3}^2+{x_1}^2\,x_3+x_2\,{x_3}^2-{x_2}^2\,x_3-x_1\,y_1\,y_2+x_1\,y_1\,y_3+x_2\,y_1\,y_2-x_2\,y_2\,y_3-x_3\,y_1\,y_3+x_3\,y_2\,y_3-x_1\,z_1\,z_2+x_1\,z_1\,z_3+x_2\,z_1\,z_2-x_2\,z_2\,z_3-x_3\,z_1\,z_3+x_3\,z_2\,z_3}{\sigma_8}\\\ \sigma_5={\left(y_1-y_2\right)}\,{\left(z_1-z_3\right)}-{\left(y_1-y_3\right)}\,{\left(z_1-z_2\right)}\\\ \sigma_6={\left(x_1-x_2\right)}\,{\left(z_1-z_3\right)}-{\left(x_1-x_3\right)}\,{\left(z_1-z_2\right)}\\\ \sigma_7={\left(x_1-x_2\right)}\,{\left(y_1-y_3\right)}-{\left(x_1-x_3\right)}\,{\left(y_1-y_2\right)}\\\ \sigma_8=x_1\,y_2-x_2\,y_1-x_1\,y_3+x_3\,y_1+x_2\,y_3-x_3\,y_2\end{array}$$
-
 
 示例：对于底面三角形ABC的三个顶点坐标分别为(0,0,0),  (2,2*sqrt(3),0),  (-2,2*sqrt(3),0)，然后我可以通过上式直接计算获取高度h和P点坐标。
 
@@ -219,7 +226,7 @@ values = values(:);
 h = simplify(subs(h,[x1 y1 z1 x2 y2 z2 x3 y3 z3],values'))
 ```
 
-h = 
+h =
 
    $\frac{2\,\sqrt{6}}{3}$
 
@@ -227,7 +234,7 @@ h =
 P_coord = simplify(subs(P_coordinate,[x1 y1 z1 x2 y2 z2 x3 y3 z3],values'))
 ```
 
-P_coord = 
+P_coord =
 
    $\left(\begin{array}{ccc}0&\frac{4\,\sqrt{3}}{3}&\frac{2\,\sqrt{6}}{3}\end{array}\right)$
 
@@ -236,8 +243,6 @@ P_coord =
 由于数值求解具有单一性，解析求解的结果过于复杂。故采用直角四面体的性质求解。
 
 $$v=\frac{1}{3}{*S}_{\bigtriangleup\textrm{ABC}}*h=\frac{1}{6}*a*b*c$$
-
-
 
 其中： $\left\|\textrm{PA}\right\|,b=\left\|\textrm{PB}\right\|,c=\left\|\textrm{PC}\right\|$ ， $v$ 为四面体体积， $S_{\bigtriangleup \textrm{ABC}}$ 为底面三角形面积。
 
@@ -252,7 +257,7 @@ S_ABC = 0.5*norm(cross(AB,AC));
 h = 0.5*a*b*c./S_ABC
 ```
 
-h = 
+h =
 
    $\frac{\sqrt{x_1\,x_2-x_1\,x_3-x_2\,x_3+y_1\,y_2-y_1\,y_3-y_2\,y_3+z_1\,z_2-z_1\,z_3-z_2\,z_3+{x_3}^2+{y_3}^2+{z_3}^2}\,\sqrt{x_2\,x_3-x_1\,x_3-x_1\,x_2-y_1\,y_2-y_1\,y_3+y_2\,y_3-z_1\,z_2-z_1\,z_3+z_2\,z_3+{x_1}^2+{y_1}^2+{z_1}^2}\,\sqrt{x_1\,x_3-x_1\,x_2-x_2\,x_3-y_1\,y_2+y_1\,y_3-y_2\,y_3-z_1\,z_2+z_1\,z_3-z_2\,z_3+{x_2}^2+{y_2}^2+{z_2}^2}}{\sqrt{{\left|{\left(x_1-x_2\right)}\,{\left(y_1-y_3\right)}-{\left(x_1-x_3\right)}\,{\left(y_1-y_2\right)}\right|}^2+{\left|{\left(x_1-x_2\right)}\,{\left(z_1-z_3\right)}-{\left(x_1-x_3\right)}\,{\left(z_1-z_2\right)}\right|}^2+{\left|{\left(y_1-y_2\right)}\,{\left(z_1-z_3\right)}-{\left(y_1-y_3\right)}\,{\left(z_1-z_2\right)}\right|}^2}}$
 
@@ -261,13 +266,13 @@ baseVertices = vertices(2:end,:)';
 
 altitude = simplify(subs(h,[x1 y1 z1 x2 y2 z2 x3 y3 z3],baseVertices(:)'))
 ```
-altitude = 
+
+altitude =
 
    $\frac{2\,\sqrt{6}}{3}$
 
 # References
+
 [1] [直角四面体Trirectangular_tetrahedron维基百科](https://en.wikipedia.org/wiki/Trirectangular_tetrahedron)<br>
 [2] [直角四面体顶点唯一性分析和证明](https://math.stackexchange.com/questions/547717/trirectangular-tetrahedron-uniqueness-of-vertex-given-base)<br>
 [3] [垂心组orthocenter system维基百科](https://en.wikipedia.org/wiki/Orthocentric_system)<br>
-
-
