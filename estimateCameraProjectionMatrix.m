@@ -15,8 +15,8 @@ function camera_matrix = estimateCameraProjectionMatrix(imagePoints,worldPoints)
 % email: cuixingxing150@gmail.com
 % 2018.8.1 实现
 %
-% 2019.3.28 注意：此函数功能已在Matlab R2019a及后续版本集成为内建函数`estimateCameraMatrix`，
-%           本函数输出为camera_matrix为3*4大小矩阵，与集成的内建函数输出正好互为转置关系！
+% 2022.9 注意：此函数功能已在Matlab R2022b及后续版本集成为内建函数`estimateCameraProjection`，
+%           两者都输出为camera_matrix为3*4大小矩阵，等价相同（除去数值计算误差影响）！
 %
 
 n = size(imagePoints,1);
