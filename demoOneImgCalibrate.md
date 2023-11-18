@@ -147,11 +147,15 @@ The main algorithmic steps are:
 - Use the QR decomposition for the first 3 columns of the $P$ matrix into $K,R$ ;
 - Calculate $T$
 
- $$ T=K^{-1} \left\lbrack \begin{array}{c} P_{14} \\ P_{24} \\ P_{34}  \end{array}\right\rbrack $$
+ $$ T=K^{-1} \left\lbrack \begin{array}{c} P_{14} \\
+ P_{24} \\
+ P_{34}  \end{array}\right\rbrack $$
 
 The camera intrinsic $K$ have the following form:
 
- $$ K=\left\lbrack \begin{array}{ccc} f_x  & s & u_0 \\ 0 & f_y  & v_0 \\ 0 & 0 & 1 \end{array}\right\rbrack $$
+ $$ K=\left\lbrack \begin{array}{ccc} f_x  & s & u_0 \\
+  & f_y  & v_0 \\
+  0 & 0 & 1 \end{array}\right\rbrack $$
 
 ```matlab
 [~,intrinsicK1, extrinsicR1, extrinsicT1] = oneImageCalibrate3D(imagePoints,worldPoints);
@@ -204,7 +208,9 @@ For more information: Berthold K.P. Horn,Tsai’s camera calibration method revi
 
 The camera intrinsic $K$ have the following form:
 
- $$ K=\left\lbrack \begin{array}{ccc} f_x  & 0 & u_0 \\ 0 & f_y  & v_0 \\ 0 & 0 & 1 \end{array}\right\rbrack $$
+ $$ K=\left\lbrack \begin{array}{ccc} f_x  & 0 & u_0 \\
+ 0 & f_y  & v_0 \\
+ 0 & 0 & 1 \end{array}\right\rbrack $$
 
 ```matlab
 [intrinsicK3,extrinsicR3,extrinsicT3] = tsaiCalibrate(imagePoints,worldPoints,[u0,v0]);
@@ -225,7 +231,9 @@ The principal point is the orthocenter of the base triangle, the focal length is
 
 Note:the camera intrinsic $K$ must be in the following form:
 
- $$ K=\left\lbrack \begin{array}{ccc} f & 0 & u_0 \\ 0 & f & v_0 \\ 0 & 0 & 1 \end{array}\right\rbrack $$
+ $$ K=\left\lbrack \begin{array}{ccc} f & 0 & u_0 \\
+  0 & f & v_0 \\
+   0 & 0 & 1 \end{array}\right\rbrack $$
 
 ```matlab
 pointA = [vanishingA,0];
@@ -280,7 +288,7 @@ plotCameraProjection3D(srcImage,l11,l12,l21,l22,l31,l32,vanishingPts, ...
     cornerNInCamera,P,Q);
 ```
 
-![figure_7.png](images/figure_7.png)
+![figure_7.png](images/cameraProject3.jpg)
 
 # Method5：Algebraic solution
 
@@ -288,7 +296,9 @@ For more information,see [*calExtrinsicAnalysis.mlx*](./calExtrinsicAnalysis.mlx
 
 Note: the camera intrinsic $K$ must be also in the following form:
 
- $$ K=\left\lbrack \begin{array}{ccc} f & 0 & u_0 \\ 0 & f & v_0 \\ 0 & 0 & 1 \end{array}\right\rbrack $$
+ $$ K=\left\lbrack \begin{array}{ccc} f & 0 & u_0 \\
+  & f & v_0 \\
+  0 & 0 & 1 \end{array}\right\rbrack $$
 
 ```matlab
 intrinsicK5 = calIntrinsicFrom3VanishingPts([vanishingA,1],[vanishingB,1],[vanishingC,1]);
