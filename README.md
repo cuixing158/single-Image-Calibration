@@ -16,6 +16,7 @@ Implementation and visualisation of multiple classical linear calibration method
 - MATLAB® R2022b or later(Because Computer Vision Toolbox™ has [switched to the "Premultiply Convention"](https://ww2.mathworks.cn/help/images/migrate-geometric-transformations-to-premultiply-convention.html) since R2022b.)
 - Image Processing Toolbox™
 - Computer Vision Toolbox™
+- Symbolic Math Toolbox™ 
 
 Note: If you are using MATLAB version R2022a or earlier, use [v1.0 of this repository](https://github.com/cuixing158/singleImageCalibration/tree/1.0)!
 
