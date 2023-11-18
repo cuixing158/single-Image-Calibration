@@ -227,7 +227,7 @@ plotCamera(AbsolutePose=cameraPose,Size=10,Color='red',...
 
 # Method4：Geometric solution
 
-The principal point is the orthocenter of the base triangle, the focal length is the height of the right-angled tetrahedron, the direction of the extrinsic rotation matrix is parallel to the prism of the tetrahedron, and the extrinsic translation vector is the proportion of similar triangles. For further details see [*calIntrinsicGeometricAnalysis.mlx*](./calIntrinsicGeometricAnalysis.mlx) *or* [*calIntrinsicGeometricAnalysis.md*](./calIntrinsicGeometricAnalysis.md) and [*calExtrinsicAnalysis.mlx*](./calExtrinsicAnalysis.mlx) *or* [*calExtrinsicAnalysis.md*](./calExtrinsicAnalysis.md) .
+The principal point is the orthocenter of the base triangle, the focal length is the height of the right-angled tetrahedron, the direction of the extrinsic rotation matrix is parallel to the prism of the tetrahedron, and the extrinsic translation vector is the proportion of similar triangles. For further details see [*calIntrinsicGeometricAnalysis.mlx*](https://viewer.mathworks.com/?viewer=live_code&url=https%3A%2F%2Fww2.mathworks.cn%2Fmatlabcentral%2Fmlc-downloads%2Fdownloads%2F2076f3ea-45d2-4e42-b65a-a17743a363ef%2F4a77a1a1-383d-4786-aa9d-a48c8b0511d0%2Ffiles%2FcalIntrinsicGeometricAnalysis.mlx&embed=web) and [*calExtrinsicAnalysis.mlx*](https://viewer.mathworks.com/?viewer=live_code&url=https%3A%2F%2Fww2.mathworks.cn%2Fmatlabcentral%2Fmlc-downloads%2Fdownloads%2F2076f3ea-45d2-4e42-b65a-a17743a363ef%2F4a77a1a1-383d-4786-aa9d-a48c8b0511d0%2Ffiles%2FcalExtrinsicAnalysis.mlx&embed=web) .
 
 Note:the camera intrinsic $K$ must be in the following form:
 
@@ -292,7 +292,7 @@ plotCameraProjection3D(srcImage,l11,l12,l21,l22,l31,l32,vanishingPts, ...
 
 # Method5：Algebraic solution
 
-For more information,see [*calExtrinsicAnalysis.mlx*](./calExtrinsicAnalysis.mlx) *or* [*calExtrinsicAnalysis.md*](./calExtrinsicAnalysis.md)*.*
+For more information,see [*calExtrinsicAnalysis.mlx*](https://viewer.mathworks.com/?viewer=live_code&url=https%3A%2F%2Fww2.mathworks.cn%2Fmatlabcentral%2Fmlc-downloads%2Fdownloads%2F2076f3ea-45d2-4e42-b65a-a17743a363ef%2F4a77a1a1-383d-4786-aa9d-a48c8b0511d0%2Ffiles%2FcalExtrinsicAnalysis.mlx&embed=web) .
 
 Note: the camera intrinsic $K$ must be also in the following form:
 
