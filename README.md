@@ -88,3 +88,4 @@ To getting started,there are two ways：
 
 ## Acknowledgments
 1. Aaron T. Becker's Robot Swarm Lab (2023). Calibrate Camera with one Photo (Linear Method) (https://www.mathworks.com/matlabcentral/fileexchange/73079-calibrate-camera-with-one-photo-linear-method), MATLAB Central File Exchange. Retrieved November 18, 2023.
+2. [Camera Calibration](http://vision.stanford.edu/teaching/cs231a_autumn1112/lecture/lecture8_camera_calibration_cs231a_marked.pdf)
