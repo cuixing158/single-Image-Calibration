@@ -4,7 +4,7 @@ function K = calIntrinsicFrom3VanishingPts(vanishingPt1,vanishingPt2,vanishingPt
 %    代数求解方法，已知三个消失点坐标(u1,u2,u3)',(v1,v2,v3)',(w1,w2,w3)',求取
 % 内参K中的f,u0,v0. 根据正交约束，满足方程u'*(inv(K))'*inv(K)*v=0,三个消失点有
 % 三对组合，对应三个独立方程，可求解焦距f，相机主点u0,v0. 
-% 理论详见"相机标定及立体视觉文献"文件夹下的《2020_(相机标定_重要_重建较好)_lec14_calibration.pdf》
+% 理论详见[Geometry of a single camera](http://saurabhg.web.illinois.edu/teaching/ece549/sp2021/slides/lec14_calibration.pdf)
 % 第50张幻灯片叙述.
 % 条件：由三个消失点组成的三角形必定为锐角三角形
 %
